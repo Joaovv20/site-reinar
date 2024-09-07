@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background: #061630;
+            font-family: "Arial";
+        }
+
+        .cor-primaria {
+            color: #ff6300;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+
+        .slides {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--img);
+            background-size: cover;
+            background-position: center;
+            transition: .5s;
+            width: 240px;
+            height: 380px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, .5);
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            border-radius: 20px;
+        }
+
+        .slider .slides:nth-child(1),
+        .slider .slides:nth-child(2) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateY(0);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0);
+            background-size: cover;
+            border-radius: 0;
+        }
+
+        .slider .slides:nth-child(3) {
+            left: calc(50% + 240px);
+            background-size: cover;
+        }
+
+        .slider .slides:nth-child(4) {
+            left: calc(50% + 500px);
+            background-size: cover;
+        }
+
+        .slider .slides:nth-child(5) {
+            left: calc(50% + 760px);
+            background-size: cover;
+        }
+
+        .slider .slides:nth-child(6) {
+            left: calc(50% + 1020px);
+            background-size: cover;
+            opacity: 0;
+        }
+
+        .buttons span {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: #ff6300;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .buttons span::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            transform: rotate(405deg) translate(2px, 2px);
+        }
+
+        .buttons span:nth-child(2)::before {
+            transform: rotate(225deg) translate(2px, 2px);
+        }
+
+        .buttons span:active {
+            opacity: .5;
+        }
+
+        .content {
+            position: relative;
+            padding: 40px;
+            max-width: 600px;
+            transition: .25s;
+            transition-delay: 0s;
+            transform: translateY(40px);
+            z-index: 10000;
+            opacity: 0;
+        }
+
+        .content h1 {
+            font-size: 4em;
+            color: #fff;
+        }
+
+        .content p {
+            color: #fff;
+        }
+
+        .slider .slides:nth-child(1) .content,
+        .slider .slides:nth-child(2) .content {
+            opacity: 1;
+            transform: translateY(0px);
+            transition-delay: .5s;
+        }
+
+        footer svg {
+            fill: rgb(102, 102, 102);
+            width: 20px;
+        }
+
+        .titulo {
+            font-size: 20px;
+        }
+
+        .item {
+            font-size: 14px;
+            color: rgb(102, 102, 102);
+        }
+
+        .item:hover {
+            color: red;
+            transition: 1s;
+        }
+
+        .item:hover:before {
+            content: url('data:image/svg+xml;charset=utf-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-right-short" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/> </svg>            ');
+            transition: 1s;
+        }
+
+        .depoimento > .box .text {
+            font-size: 14px;
+            color: rgb(102, 102, 102);
+
+        }
+
+        .slider2 {
+            position: relative;
+            width: 100%;
+            height: 150px;
+        }
+
+        .slides2 {
+            position: absolute;
+            transition: .7s;
+            width: 80%;
+            height: 150px;
+            top: 0;
+        }
+
+        .slider2 .slides2:nth-child(1) {
+            left: -85%;
+        }
+
+        .slider2 .slides2:nth-child(2) {
+            left: -2%;
+        }
+
+        .slider2 .slides2:nth-child(3) {
+            left: 80%;
+        }
+
+        .slider2 .slides2:nth-child(4) {
+            left: 164%;
+        }
+
+        .depoimento2 > .buttons span::before {
+            transform: rotate(135deg) translate(2px, 2px);
+        }
+
+        @media (max-width: 992px) {
+            .banner {
+                height: 650px;
+            }
+
+            .slider {
+                background: aqua !important;
+                position: absolute;
+                /*inset: 40px 40px 200px 40px;*/
+                width: 100%;
+            }
+
+            .slider .slides {
+                width: 100px;
+                height: 100px;
+                top: initial;
+                bottom: -170px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
+            }
+
+            .slider .slides:nth-child(1),
+            .slider .slides:nth-child(2) {
+                top: initial;
+                bottom: 0;
+            }
+
+            .slider .slides:nth-child(3) {
+                left: 0;
+            }
+
+            .slider .slides:nth-child(4) {
+                left: 120px;
+            }
+
+            .slider .slides:nth-child(5) {
+                left: 240px;
+            }
+
+            .slider .slides:nth-child(6) {
+                left: 360px;
+            }
+
+            .titulo {
+                font-size: 23px;
+                margin-top: 30px;
+                color: #111111;
+            }
+
+            .item {
+                font-size: 20px;
+            }
+
+            .slider2 {
+                height: 320px;
+            }
+
+            .slides2 {
+                height: 320px;
+                top: 0;
+            }
+        }
+
+        .whatsapp a {
+            text-decoration: none;
+            color: RGB(37, 211, 102);
+        }
+
+        #navbarScroll a {
+            color: #ff6300;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #navbarScroll {
+            background: #061630;
+        }
+
+        .container-fluid a {
+            color: RGB(37, 211, 102);
+        }
+
+
+        @keyframes bounce {
+            from,
+            20%,
+            53%,
+            to {
+                -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+            40%,
+            43% {
+                -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                -webkit-transform: translate3d(0, -30px, 0) scaleY(1.1);
+                transform: translate3d(0, -30px, 0) scaleY(1.1);
+            }
+            70% {
+                -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                -webkit-transform: translate3d(0, -15px, 0) scaleY(1.05);
+                transform: translate3d(0, -15px, 0) scaleY(1.05);
+            }
+            80% {
+                -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                -webkit-transform: translate3d(0, 0, 0) scaleY(0.95);
+                transform: translate3d(0, 0, 0) scaleY(0.95);
+            }
+            90% {
+                -webkit-transform: translate3d(0, -4px, 0) scaleY(1.02);
+                transform: translate3d(0, -4px, 0) scaleY(1.02);
+            }
+        }
+
+        .animar-bounce {
+            animation: bounce 1s ease-in-out;
+        }
+
+        /* From Uiverse.io by catraco */
+        .card-service {
+            --card-color: #0080ff;
+            --blub-color: #ff6300;
+            position: relative;
+            user-select: none;
+            width: 33%;
+            padding: 10px;
+        }
+
+        @keyframes keyframes-rotate-blubs {
+            0% {
+                transform: translate(10px) rotate(360deg);
+            }
+
+            50% {
+                transform: translate(-5px, 10px) rotate(180deg);
+            }
+
+            100% {
+                transform: translate(10px) rotate(0deg);
+            }
+        }
+
+        .bolha {
+            width: 100px;
+            height: 100px;
+            display: block;
+            position: absolute;
+            background: linear-gradient(0deg, transparent, #ff6300);
+            border: 1px solid red;
+            border-radius: 100%;
+            opacity: 0.5;
+            animation: keyframes-rotate-blubs 4s infinite linear;
+            z-index: 999999999999!important;
+        }
+
+        .bolha:nth-child(1) {
+            top: -5%;
+            left: 15%;
+            width: 60px;
+            height: 60px;
+            animation-delay: .1s;
+            opacity: 0.3;
+        }
+
+        .bolha:nth-child(2) {
+            top: 60%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            animation-delay: .2s;
+            opacity: 0.3;
+        }
+
+        .bolha:nth-child(3) {
+            top: 70%;
+            left: 60%;
+            animation-delay: .3s;
+            opacity: 0.6;
+        }
+
+        .bolha:nth-child(4) {
+            top: 50%;
+            left: 30%;
+            width: 43px;
+            height: 43px;
+            animation-delay: .4s;
+            opacity: 0.4;
+        }
+
+        .bolha:nth-child(5) {
+            top: 50%;
+            left: 10%;
+            width: 35px;
+            height: 35px;
+            animation-delay: .4s;
+            opacity: 0.4;
+        }
+
+        .bolha:nth-child(6) {
+            top: 85%;
+            left: 80%;
+            width: 70px;
+            height: 70px;
+            animation-delay: .4s;
+            opacity: 0.4;
+        }
+
+        .bolha:nth-child(7) {
+            top: 10%;
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: .6s;
+            opacity: 0.4;
+        }
+
+        .bolha:nth-child(8) {
+            top: 10%;
+            left: 10%;
+            width: 25px;
+            height: 25px;
+            animation-delay: .1s;
+            opacity: 0.4;
+        }
+
+        .bolha:nth-child(9) {
+            top: 10%;
+            right: 10%;
+            width: 30px;
+            height: 30px;
+            animation-delay: .1s;
+            opacity: 0.4;
+        }
+
+        .card-service div {
+            backdrop-filter: blur(15px);
+            outline: 1px solid var(--card-color);
+            color: var(--card-color);
+            width: 100%;
+            height: 90%;
+            border-radius: 5%;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            opacity: .5;
+        }
+
+        .card-service div .check {
+            fill: var(--card-color);
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+        }
+
+        .sessao-servico div strong {
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .sessao-servico div p {
+            font-size: 0.8rem;
+        }
+
+        .sessao-servico div hr {
+            border: none;
+            border-top: 1px solid var(--card-color);
+            opacity: .5;
+        }
+
+        .sessao-servico ul{
+            min-height: 200px;
+        }
+
+        .sessao-servico ul li{
+            color: slategrey;
+        }
+        .sessao-servico ul li:before{
+            content: url('data:image/svg+xml;charset=utf-8, <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="green" class="bi bi-check2" viewBox="0 0 16 16"> <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/> </svg>');
+        }
+
+        .sessao-servico button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            outline: 1px solid white;
+            border-radius: 1rem;
+            padding: .5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            transition: .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .sessao-servico  button .arrow {
+            width: 0;
+            height: 20px;
+            fill: white;
+            transform: scale(0);
+            transition: .3s;
+        }
+
+        .sessao-servico button:hover .arrow {
+            width: 20px;
+            margin-left: 1em;
+            transform: scale(1);
+        }
+
+        .sessao-servico  button:hover {
+            background-color: var(--blub-color);
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid " style="background: #061630">
+    <div style="width: 100%;height: 17px;background: #111111;color: white;display: flex">
+        <div class="d-flex justify-content-end" style="width: 30%"></div>
+        <div class="d-flex justify-content-center p-0" style="width: 40%">
+            <svg class="bi bi-telephone" width="15px" fill="#fff" viewBox="0 0 16 16">
+                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+            </svg>
+            <span style="font-size: 15px">(11)97834-4543</span></div>
+        <div class="d-flex justify-content-end" style="width: 30%">
+            <svg class="bi bi-twitter-x ms-2" viewBox="0 0 16 16" width="15px" fill="#fff">
+                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+            </svg>
+            <svg class="bi bi-facebook ms-2" viewBox="0 0 16 16" width="15" fill="#fff">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+            </svg>
+            <svg class="bi bi-instagram ms-2 me-1" viewBox="0 0 16 16" width="15" fill="#fff">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+            </svg>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background: #061630">
+        <div class="container-fluid " style="background: #061630">
+            <a class="navbar-brand" href="#">
+                <svg width="90" height="90" class="position-absolute text-white" style="top: -30px" viewBox="261.64 199.048 573.92 432.392">
+                    <path d="M -132 200 C -131.34 200 1.32 0 2 0 C 3.508 2.117 152.646 234.47 152.646 234.47 L 134.035 234.47 L 0.45 29.118 C 0.45 29.118 -129.396 230.332 -131.707 234.47 C -133.687 234.47 -193 54 -193 54 L -174.777 63.809 C -174.777 63.809 -132 197.796 -132 200 Z" fill="#F76206" transform="translate(517,236)"></path>
+                    <path d="M -7.838 13.052 L 2 0 C 2 0 154.503 233.108 155 234 C 156.629 229.812 200.266 95.211 200.266 95.211 L 217 88 L 159.383 268.47 L -7.838 13.052 Z" fill="#F76205" transform="translate(539,202)"></path>
+                    <path d="M -2 1 C -1.34 0.67 124.44 186.12 124.44 186.12 L 172.133 186.12 L 166.64 200.152 L 116 200.152 C 116 200.152 -1.454 28.32 -1.687 29 C -3.11 32.25 -90.868 165.47 -90.868 165.47 L -106.323 165.47 C -106.323 165.47 -2 2.02 -2 1 Z" fill="#F76306" transform="translate(517,305)"></path>
+                    <path d="M 0 0 L 8.926 8.613 L -68.68 132.152 L -119.32 132.152 L -124.307 118.12 L -77.12 118.12 L 0 0 Z" fill="#F96204" transform="translate(516,373)"></path>
+                    <path d="M 0 0 L 14.396 7.958 L 29.368 53.498 C 29.368 53.498 23.162 63.45 22 65 L 0 0 Z" fill="#F56207" transform="translate(372,319)" style="opacity: 1;"></path>
+                    <path d="M -8.155 15.286 L 5.22 10.932 L -17.967 66.446 L -25.472 53.383 L -8.155 15.286 Z" fill="#F76206" transform="translate(705,319)"></path>
+                    <path d="M 537.48 408.66 C 540.48 409.66 603.48 505.152 603.48 505.152 C 603.48 505.152 516.84 505.152 472.64 505.152 C 474.29 502.182 535.48 411.66 537.48 408.66 Z" fill="#F86305" style="opacity: 1;"></path>
+                    <path d="M 538.207 434.28 L 573.92 491.12 L 502.724 491.12 L 538.207 434.28 Z" style="opacity: 0; fill:transparent;"></path>
+                    <text fill="white" style="font-family: Arial, sans-serif; font-size: 137px; font-weight: 700; white-space: pre;" transform="matrix(1.044617, 0, 0, 1.007738, -21.243196, -18.357382)" x="286.96" y="629.551">REINAR</text>
+                    <rect x="708.96" y="491.12" width="109.72" height="14.032" style="stroke: rgb(0, 0, 0); fill: rgb(247, 98, 5);"></rect>
+                    <rect x="286.96" y="491.12" width="84.4" height="14.032" style="stroke: rgb(0, 0, 0); fill: rgb(247, 98, 5);"></rect>
+                </svg>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+            </button>
+            <div class="collapse navbar-collapse " id="navbarScroll">
+                <ul class="navbar-nav  my-2 my-lg-0  w-100  justify-content-end" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Fotos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid border mx-0 px-0 position-relative banner "
+         style="overflow: hidden;min-height: 500px; background: #061630; border: red">
+        <div class="slider " style="background: #061630">
+            <div class="slides" style="--img: url('imagen/photo6.jpg'); background: #061630 ">
+                <div class="content" style="background:#061630;">
+                    <h1>Slider 1</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
+                <div class="content">
+                    <h1>Slider 2</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo3.jpg') ">
+                <div class="content">
+                    <h1>Slider 3</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo3.jpg') ">
+                <div class="content">
+                    <h1>Slider 4</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
+                <div class="content">
+                    <h1>Slider 5</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
+                <div class="content">
+                    <h1>Slider 6</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                </div>
+            </div>
+        </div>
+        <div class="buttons d-flex flex-column position-absolute bottom-50  start-0 ms-2 cor-primaria">
+            <span class="next mb-2"></span>
+            <span class="prev "></span>
+        </div>
+        <div class="whatsapp" style="display: flex; align-items: center; justify-content: center">
+            <a href="https://whatsapp.com" id="elemento"
+               style="z-index: 30000000000;bottom: 20px;right: 10px; position: fixed">
+                <div class="d-flex">
+                    <h1>Whatsapp</h1>
+                    <svg class="bi bi-whatsapp mx-2" fill=" RGB(37, 211, 102)" viewBox="0 0 16 16"
+                         style="z-index: 30000000000;width: 50px;">
+                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <section class="my-2 sessao-servico" style="background: linear-gradient(to right,#061630,80% , #98C1D9 ); border: 1px">
+        <p class="h3 cor-primaria ">Nossos Serviços</p>
+        <div class="d-flex justify-content-around position-relative">
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <span class="bolha"></span>
+            <div class="card-service">
+                <div>
+                    <svg class="check" height="1em" viewBox="0 0 512 512">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
+                    </svg>
+                    <p class="d-flex mb-3">
+                        <strong class="cor-primaria titulo">POLIMENTO</strong>
+                        <svg width="26" height="26" class="ms-2" fill="green" viewBox="0 0 512 512"><path d="M96 32v96H224V32c0-17.7-14.3-32-32-32H128C110.3 0 96 14.3 96 32zm0 128c-53 0-96 43-96 96V464c0 26.5 21.5 48 48 48H272c26.5 0 48-21.5 48-48V256c0-53-43-96-96-96H96zm64 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160zM384 48c0-1.4-1-3-2.2-3.6L352 32 339.6 2.2C339 1 337.4 0 336 0s-3 1-3.6 2.2L320 32 290.2 44.4C289 45 288 46.6 288 48c0 1.4 1 3 2.2 3.6L320 64l12.4 29.8C333 95 334.6 96 336 96s3-1 3.6-2.2L352 64l29.8-12.4C383 51 384 49.4 384 48zm76.4 45.8C461 95 462.6 96 464 96s3-1 3.6-2.2L480 64l29.8-12.4C511 51 512 49.4 512 48c0-1.4-1-3-2.2-3.6L480 32 467.6 2.2C467 1 465.4 0 464 0s-3 1-3.6 2.2L448 32 418.2 44.4C417 45 416 46.6 416 48c0 1.4 1 3 2.2 3.6L448 64l12.4 29.8zm7.2 100.4c-.6-1.2-2.2-2.2-3.6-2.2s-3 1-3.6 2.2L448 224l-29.8 12.4c-1.2 .6-2.2 2.2-2.2 3.6c0 1.4 1 3 2.2 3.6L448 256l12.4 29.8c.6 1.2 2.2 2.2 3.6 2.2s3-1 3.6-2.2L480 256l29.8-12.4c1.2-.6 2.2-2.2 2.2-3.6c0-1.4-1-3-2.2-3.6L480 224l-12.4-29.8zM448 144c0-1.4-1-3-2.2-3.6L416 128 403.6 98.2C403 97 401.4 96 400 96s-3 1-3.6 2.2L384 128l-29.8 12.4c-1.2 .6-2.2 2.2-2.2 3.6c0 1.4 1 3 2.2 3.6L384 160l12.4 29.8c.6 1.2 2.2 2.2 3.6 2.2s3-1 3.6-2.2L416 160l29.8-12.4c1.2-.6 2.2-2.2 2.2-3.6z"/></svg>                    </p>
+                    <ul>
+                        <li class="list-group-item">Polimento Mármores</li>
+                        <li class="list-group-item">Polimento Granito</li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="card-service">
+                <div>
+                    <svg class="check" height="1em" viewBox="0 0 512 512">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
+                    </svg>
+                    <p class="d-flex mb-3">
+                        <strong class="cor-primaria  titulo">LIMPEZA</strong>
+                        <svg width="26" height="26" fill="green" class="bi bi-stars ms-2" viewBox="0 0 16 16"> <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>
+                    </p>
+
+                    <ul>
+                        <li class="list-group-item">Limpeza De Pedra Mineira</li>
+                        <li class="list-group-item">Limpeza De Pedra Miracema</li>
+                        <li class="list-group-item">Limpeza De Fulget</li>
+                        <li class="list-group-item">Limpeza De Granito Flameado</li>
+                        <li class="list-group-item">Limpeza De Cerâmica</li>
+                        <li class="list-group-item">Limpeza De Mosaico</li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="card-service">
+                <div>
+                    <svg class="check" height="1em" viewBox="0 0 512 512">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
+                    </svg>
+                    <p  class="mb-3">
+                        <strong class="cor-primaria titulo">RESTAURAÇÃO</strong>
+                        <svg width="26" height="26" fill="green" class="bi bi-hammer" viewBox="0 0 16 16">
+                            <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5 5 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334"/>
+                        </svg>
+                    </p>
+                    <ul>
+                        <li class="list-group-item">Restauração De Mármores</li>
+                        <li class="list-group-item">Restauração De Granito</li>
+                        <li class="list-group-item">Restauração De Granilite</li>
+                        <li class="list-group-item">Restauração De Porcelanato</li>
+                        <li class="list-group-item">Restauração De Ardósia</li>
+                        <li class="list-group-item">Restauração De Concreto Polido</li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <button  class="">
+            Ver mais
+            <svg class="arrow"  height="1em" viewBox="0 0 512 512">
+                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"></path>
+            </svg>
+        </button>
+    </section>
+    <!--    sessão  serviços-->
+    <!--    <section class="my-5 depoimento">-->
+    <!--        <p class="h3 cor-primaria ">Nossos Serviços</p>-->
+    <!--        <div class="border mb-3 position-relative pt-3 pb-5"-->
+    <!--             style="background: rgb(2,0,36);background: linear-gradient(254deg, rgba(2,0,36,1) 39%, rgba(69,117,110,1) 64%, rgba(0,212,255,1) 100%);">-->
+    <!--            <div class="row row-cols-1 row-cols-md-3 g-4  mx-2" style="top: -20px;">-->
+    <!--                <div class="col my-3 px-1 box">-->
+    <!--                    <div class="card h-100 position-relative">-->
+    <!--                        <div class="border rounded-circle position-absolute bg-white"-->
+    <!--                             style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">-->
+    <!--                            <svg width="100%" height="100%" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">-->
+    <!--                                <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>-->
+    <!--                            </svg>-->
+    <!--                        </div>-->
+
+    <!--                        <div class="card-body">-->
+    <!--                            <div class="card-text">-->
+    <!--                                <h4 class="card-title">Polimento</h4>-->
+    <!--                                <ul class="list-group list-group-flush">-->
+    <!--                                    <li class="list-group-item ">Polimento Mármores</li>-->
+    <!--                                    <li class="list-group-item">Polimento Granito</li>-->
+    <!--                                </ul>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <small class="ms-3">Edilson frança</small>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col my-3 px-1 box ">-->
+    <!--                    <div class="card h-100 position-relative">-->
+    <!--                        <div class="border rounded-circle position-absolute bg-white"-->
+    <!--                             style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">-->
+    <!--                            <svg stroke="red" viewBox="0 0 512 512" width="100%" height="100%">-->
+    <!--                                <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>-->
+    <!--                            </svg>-->
+    <!--                        </div>-->
+    <!--                        <div class="card-body">-->
+    <!--                            <div class="card-text">-->
+    <!--                                <h4 class="card-title ">Limpeza</h4>-->
+    <!--                                <ul class="list-group list-group-flush">-->
+    <!--                                    <li class="list-group-item">Limpeza De Pedra Mineira</li>-->
+    <!--                                    <li class="list-group-item">Limpeza De Pedra Miracema</li>-->
+    <!--                                    <li class="list-group-item">Limpeza De Fulget</li>-->
+    <!--                                    <li class="list-group-item">Limpeza De Granito Flameado</li>-->
+    <!--                                    <li class="list-group-item">Limpeza De Cerâmica</li>-->
+    <!--                                    <li class="list-group-item">Limpeza De Mosaico</li>-->
+    <!--                                </ul>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col my-3 px-1 box">-->
+    <!--                    <div class="card h-100 position-relative">-->
+    <!--                        <div class="border rounded-circle position-absolute bg-white"-->
+    <!--                             style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">-->
+    <!--                            <svg width="100%" height="100%" viewBox="0 0 448 512">-->
+    <!--                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>-->
+    <!--                            </svg>-->
+    <!--                        </div>-->
+    <!--                        <div class="card-body">-->
+    <!--                            <div class="card-text">-->
+    <!--                                <h4 class="card-title  ">Restauração </h4>-->
+    <!--                                <ul class="list-group list-group-flush">-->
+    <!--                                    <li class="list-group-item">Restauração De Mármores</li>-->
+    <!--                                    <li class="list-group-item">Restauração de Granito</li>-->
+    <!--                                    <li class="list-group-item">Restauração Granilite</li>-->
+    <!--                                    <li class="list-group-item">Restauração De Porcelanato</li>-->
+    <!--                                    <li class="list-group-item">Restauração De Ardósia</li>-->
+    <!--                                    <li class="list-group-item">Restauração De Concreto Polido</li>-->
+    <!--                                </ul>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+
+
+    <!--    sessão  depoimentos  vc cria outra sessão e adiciona as divs-->
+    <section class="depoimento2 container-fluid mx-0 my-3  position-relative p-2" style="overflow: hidden">
+        <p class="h3 cor-primaria ">O que nossos clientes dizem sobre nosso trabalho</p>
+        <div class="p-5" style="background: cadetblue;overflow: hidden">
+            <div class="slider2 position-relative py-2">
+                <div class="slides2 border">
+                    <div class="border rounded-circle position-absolute bg-white"
+                         style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">
+                        <svg viewBox="0 0 512 512" width="100%" height="100%">
+                            <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text p-2">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                            </svg>
+                            <p class="mb-0 text">
+                                <em>
+                                    Contratamos o serviço de polimento e limpeza de pisos para nossa empresa e
+                                    ficamos extremamente satisfeitos com o resultado. O piso ficou impecável,
+                                    brilhante e com uma aparência renovada. A equipe foi pontual, profissional e
+                                    o trabalho superou nossas expectativas. Recomendo fortemente os serviços
+                                    dessa empresa para quem busca qualidade e eficiência!
+                                </em>
+                            </p>
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote"
+                                 viewBox="0 0 16 16">
+                                <g transform="rotate(180, 8, 8)">
+                                    <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <small class="me-2 position-absolute bottom-0 end-0">Edilson frança</small>
+                </div>
+                <div class="slides2 border">
+                    <div class="border rounded-circle position-absolute bg-white"
+                         style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">
+                        <svg viewBox="0 0 512 512" width="100%" height="100%">
+                            <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
+                        </svg>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="card-text">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                            </svg>
+                            <p class="mb-0 text">
+                                <em>
+                                    O serviço de polimento de pisos foi excelente! Além da qualidade do
+                                    trabalho, a equipe foi rápida e eficiente, sem causar nenhum transtorno para
+                                    nossas atividades. O piso da empresa ficou como novo. Com certeza,
+                                    contaremos com eles novamente no futuro!
+                                </em>
+                            </p>
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote"
+                                 viewBox="0 0 16 16">
+                                <g transform="rotate(180, 8, 8)">
+                                    <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <small class="me-2 position-absolute bottom-0 end-0">Edilson frança</small>
+                </div>
+                <div class="slides2 border">
+                    <div class="border rounded-circle position-absolute bg-white"
+                         style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">
+                        <svg viewBox="0 0 512 512" width="100%" height="100%">
+                            <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
+                        </svg>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="card-text">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                            </svg>
+                            <p class="mb-0 text">
+                                <em>
+                                    Estou impressionado com o trabalho de polimento e limpeza de pisos realizado
+                                    pela equipe. O cuidado e a atenção aos detalhes foram excepcionais, e o
+                                    resultado final transformou completamente o ambiente da nossa empresa. O
+                                    piso nunca esteve tão limpo e brilhante! Recomendo sem hesitar.
+                                </em>
+                            </p>
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote"
+                                 viewBox="0 0 16 16">
+                                <g transform="rotate(180, 8, 8)">
+                                    <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <small class="me-2 position-absolute bottom-0 end-0">Edilson frança</small>
+                </div>
+                <div class="slides2 border">
+                    <div class="border rounded-circle position-absolute bg-white"
+                         style="width: 60px;height: 60px; bottom: -30px;left: 50%;transform: translateX(-50%)">
+                        <svg viewBox="0 0 512 512" width="100%" height="100%">
+                            <path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/>
+                        </svg>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="card-text">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                            </svg>
+                            <p class="mb-0 text">
+                                <em>
+                                    Estou impressionado com o trabalho de polimento e limpeza de pisos realizado
+                                    pela equipe. O cuidado e a atenção aos detalhes foram excepcionais, e o
+                                    resultado final transformou completamente o ambiente da nossa empresa. O
+                                    piso nunca esteve tão limpo e brilhante! Recomendo sem hesitar.
+                                </em>
+                            </p>
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-quote"
+                                 viewBox="0 0 16 16">
+                                <g transform="rotate(180, 8, 8)">
+                                    <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <small class="me-2 position-absolute bottom-0 end-0">Edilson frança</small>
+                </div>
+            </div>
+        </div>
+
+        <div id="nextSlider" class="buttons d-flex flex-column position-absolute bottom-0  start-0 ms-2">
+            <span class="prevDepoimento2"></span>
+        </div>
+    </section>
+
+    <footer class="border-top mt-5">
+        <div class="row d-flex ">
+            <div class="d-flex flex-column col-md-3 ">
+                <p class="mb-1 titulo cor-primaria">Entre em contato</p>
+                <span>
+                    <svg class="bi bi-telephone" viewBox="0 0 16 16">
+                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                    </svg>
+                    <svg class="bi bi-whatsapp mx-2" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                    </svg>
+                     <span class="item">11 97876-9876</span>
+                </span>
+            </div>
+            <div class="d-flex flex-column col-md-3 ">
+                <p class="mb-1 titulo cor-primaria">Serviços</p>
+                <div class="d-flex  flex-column">
+                    <span class="item">Restauração de Pisos</span>
+                    <span class="item">Limpeza de Pisos</span>
+                    <span class="item">Polimento de Pisos</span>
+                </div>
+            </div>
+            <div class="d-none  d-md-flex flex-column col-md-3 ">
+                <p class="mb-1 titulo cor-primaria">Menu</p>
+                <div class="d-flex  flex-column">
+                    <span class="item">home</span>
+                    <span class="item">Serviços</span>
+                    <span class="item">Galeria</span>
+                </div>
+            </div>
+            <div class="d-flex flex-column col-md-3 ">
+                <p class="mb-1 titulo cor-primaria">Redes Sociais</p>
+                <div class="d-flex">
+                          <span class="mx-2">
+                    <svg class="bi bi-twitter-x" viewBox="0 0 16 16">
+                      <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                    </svg>
+                </span>
+                    <span class="mx-2">
+                    <svg class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                    </svg>
+                </span>
+                    <span class="mx-2">
+                <svg class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                </svg>
+             </span>
+                </div>
+
+            </div>
+        </div>
+
+        <p class="border-top d-flex flex-column justify-content-between mt-3 text-white">
+            <span>Reinar | Restauração | Limpeza |Polimento | itaim Paulista | São Paulo - SP | CEP: 08180-150 </span>
+            <span>© Copyright 2024</span>
+        </p>
+    </footer>
+
+</div>
+
+
+<script>
+    let next = document.querySelector(".next")
+    let prev = document.querySelector(".prev")
+    let slider = document.querySelector(".slider")
+
+    next.addEventListener('click', function () {
+        let slides = document.querySelectorAll(".slides")
+        slider.appendChild(slides[0])
+    })
+
+    prev.addEventListener('click', function () {
+        let slides = document.querySelectorAll(".slides")
+        slider.prepend(slides[slides.length - 1])
+    })
+
+    let slide2 = document.querySelector(".slider2")
+    let next2 = document.querySelector("#nextSlider")
+
+    next2.addEventListener('click', function () {
+        let slides2 = document.querySelectorAll(".slides2")
+        slide2.appendChild(slides2[0])
+    })
+
+    const elemento = document.getElementById('elemento');
+
+    function executarBounce() {
+        elemento.classList.add('animar-bounce');
+
+        setTimeout(() => {
+            elemento.classList.remove('animar-bounce');
+        }, 1000);
+    }
+
+    setInterval(executarBounce, 5000);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+</html>
