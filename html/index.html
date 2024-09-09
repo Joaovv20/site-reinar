@@ -1,530 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        body {
-            background: #061630;
-            font-family: "Arial";
-        }
+    <link rel="stylesheet" href="estilo.css">
 
-        .cor-primaria {
-            color: #ff6300;
-        }
-
-        .slider {
-            position: relative;
-            width: 100%;
-            height: 500px;
-        }
-
-        .slides {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--img);
-            background-size: cover;
-            background-position: center;
-            transition: .5s;
-            width: 240px;
-            height: 380px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, .5);
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-end;
-            border-radius: 20px;
-        }
-
-        .slider .slides:nth-child(1),
-        .slider .slides:nth-child(2) {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: translateY(0);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0);
-            background-size: cover;
-            border-radius: 0;
-        }
-
-        .slider .slides:nth-child(3) {
-            left: calc(50% + 240px);
-            background-size: cover;
-        }
-
-        .slider .slides:nth-child(4) {
-            left: calc(50% + 500px);
-            background-size: cover;
-        }
-
-        .slider .slides:nth-child(5) {
-            left: calc(50% + 760px);
-            background-size: cover;
-        }
-
-        .slider .slides:nth-child(6) {
-            left: calc(50% + 1020px);
-            background-size: cover;
-            opacity: 0;
-        }
-
-        .buttons span {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            background: #ff6300;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-        }
-
-        .buttons span::before {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-top: 2px solid #fff;
-            border-left: 2px solid #fff;
-            transform: rotate(405deg) translate(2px, 2px);
-        }
-
-        .buttons span:nth-child(2)::before {
-            transform: rotate(225deg) translate(2px, 2px);
-        }
-
-        .buttons span:active {
-            opacity: .5;
-        }
-
-        .content {
-            position: relative;
-            padding: 40px;
-            max-width: 600px;
-            transition: .25s;
-            transition-delay: 0s;
-            transform: translateY(40px);
-            z-index: 10000;
-            opacity: 0;
-        }
-
-        .content h1 {
-            font-size: 4em;
-            color: #fff;
-        }
-
-        .content p {
-            color: #fff;
-        }
-
-        .slider .slides:nth-child(1) .content,
-        .slider .slides:nth-child(2) .content {
-            opacity: 1;
-            transform: translateY(0px);
-            transition-delay: .5s;
-        }
-
-        footer svg {
-            fill: rgb(102, 102, 102);
-            width: 20px;
-        }
-
-        .titulo {
-            font-size: 20px;
-        }
-
-        .item {
-            font-size: 14px;
-            color: rgb(102, 102, 102);
-        }
-
-        .item:hover {
-            color: red;
-            transition: 1s;
-        }
-
-        .item:hover:before {
-            content: url('data:image/svg+xml;charset=utf-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-right-short" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/> </svg>            ');
-            transition: 1s;
-        }
-
-        .depoimento > .box .text {
-            font-size: 14px;
-            color: rgb(102, 102, 102);
-
-        }
-
-        .slider2 {
-            position: relative;
-            width: 100%;
-            height: 150px;
-        }
-
-        .slides2 {
-            position: absolute;
-            transition: .7s;
-            width: 80%;
-            height: 150px;
-            top: 0;
-        }
-
-        .slider2 .slides2:nth-child(1) {
-            left: -85%;
-        }
-
-        .slider2 .slides2:nth-child(2) {
-            left: -2%;
-        }
-
-        .slider2 .slides2:nth-child(3) {
-            left: 80%;
-        }
-
-        .slider2 .slides2:nth-child(4) {
-            left: 164%;
-        }
-
-        .depoimento2 > .buttons span::before {
-            transform: rotate(135deg) translate(2px, 2px);
-        }
-
-        @media (max-width: 992px) {
-            .banner {
-                height: 650px;
-            }
-
-            .slider {
-                background: aqua !important;
-                position: absolute;
-                /*inset: 40px 40px 200px 40px;*/
-                width: 100%;
-            }
-
-            .slider .slides {
-                width: 100px;
-                height: 100px;
-                top: initial;
-                bottom: -170px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
-            }
-
-            .slider .slides:nth-child(1),
-            .slider .slides:nth-child(2) {
-                top: initial;
-                bottom: 0;
-            }
-
-            .slider .slides:nth-child(3) {
-                left: 0;
-            }
-
-            .slider .slides:nth-child(4) {
-                left: 120px;
-            }
-
-            .slider .slides:nth-child(5) {
-                left: 240px;
-            }
-
-            .slider .slides:nth-child(6) {
-                left: 360px;
-            }
-
-            .titulo {
-                font-size: 23px;
-                margin-top: 30px;
-                color: #111111;
-            }
-
-            .item {
-                font-size: 20px;
-            }
-
-            .slider2 {
-                height: 320px;
-            }
-
-            .slides2 {
-                height: 320px;
-                top: 0;
-            }
-        }
-
-        .whatsapp a {
-            text-decoration: none;
-            color: RGB(37, 211, 102);
-        }
-
-        #navbarScroll a {
-            color: #ff6300;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        #navbarScroll {
-            background: #061630;
-        }
-
-        .container-fluid a {
-            color: RGB(37, 211, 102);
-        }
-
-
-        @keyframes bounce {
-            from,
-            20%,
-            53%,
-            to {
-                -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-            40%,
-            43% {
-                -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                -webkit-transform: translate3d(0, -30px, 0) scaleY(1.1);
-                transform: translate3d(0, -30px, 0) scaleY(1.1);
-            }
-            70% {
-                -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                -webkit-transform: translate3d(0, -15px, 0) scaleY(1.05);
-                transform: translate3d(0, -15px, 0) scaleY(1.05);
-            }
-            80% {
-                -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-                transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-                -webkit-transform: translate3d(0, 0, 0) scaleY(0.95);
-                transform: translate3d(0, 0, 0) scaleY(0.95);
-            }
-            90% {
-                -webkit-transform: translate3d(0, -4px, 0) scaleY(1.02);
-                transform: translate3d(0, -4px, 0) scaleY(1.02);
-            }
-        }
-
-        .animar-bounce {
-            animation: bounce 1s ease-in-out;
-        }
-
-        /* From Uiverse.io by catraco */
-        .card-service {
-            --card-color: #0080ff;
-            --blub-color: #ff6300;
-            position: relative;
-            user-select: none;
-            width: 33%;
-            padding: 10px;
-        }
-
-        @keyframes keyframes-rotate-blubs {
-            0% {
-                transform: translate(10px) rotate(360deg);
-            }
-
-            50% {
-                transform: translate(-5px, 10px) rotate(180deg);
-            }
-
-            100% {
-                transform: translate(10px) rotate(0deg);
-            }
-        }
-
-        .bolha {
-            width: 100px;
-            height: 100px;
-            display: block;
-            position: absolute;
-            background: linear-gradient(0deg, transparent, #ff6300);
-            border: 1px solid red;
-            border-radius: 100%;
-            opacity: 0.5;
-            animation: keyframes-rotate-blubs 4s infinite linear;
-            z-index: 999999999999!important;
-        }
-
-        .bolha:nth-child(1) {
-            top: -5%;
-            left: 15%;
-            width: 60px;
-            height: 60px;
-            animation-delay: .1s;
-            opacity: 0.3;
-        }
-
-        .bolha:nth-child(2) {
-            top: 60%;
-            left: 50%;
-            width: 15px;
-            height: 15px;
-            animation-delay: .2s;
-            opacity: 0.3;
-        }
-
-        .bolha:nth-child(3) {
-            top: 70%;
-            left: 60%;
-            animation-delay: .3s;
-            opacity: 0.6;
-        }
-
-        .bolha:nth-child(4) {
-            top: 50%;
-            left: 30%;
-            width: 43px;
-            height: 43px;
-            animation-delay: .4s;
-            opacity: 0.4;
-        }
-
-        .bolha:nth-child(5) {
-            top: 50%;
-            left: 10%;
-            width: 35px;
-            height: 35px;
-            animation-delay: .4s;
-            opacity: 0.4;
-        }
-
-        .bolha:nth-child(6) {
-            top: 85%;
-            left: 80%;
-            width: 70px;
-            height: 70px;
-            animation-delay: .4s;
-            opacity: 0.4;
-        }
-
-        .bolha:nth-child(7) {
-            top: 10%;
-            left: 70%;
-            width: 20px;
-            height: 20px;
-            animation-delay: .6s;
-            opacity: 0.4;
-        }
-
-        .bolha:nth-child(8) {
-            top: 10%;
-            left: 10%;
-            width: 25px;
-            height: 25px;
-            animation-delay: .1s;
-            opacity: 0.4;
-        }
-
-        .bolha:nth-child(9) {
-            top: 10%;
-            right: 10%;
-            width: 30px;
-            height: 30px;
-            animation-delay: .1s;
-            opacity: 0.4;
-        }
-
-        .card-service div {
-            backdrop-filter: blur(15px);
-            outline: 1px solid var(--card-color);
-            color: var(--card-color);
-            width: 100%;
-            height: 90%;
-            border-radius: 5%;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            background: white;
-            opacity: .5;
-        }
-
-        .card-service div .check {
-            fill: var(--card-color);
-            width: 25px;
-            height: 25px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            transform: translate(50%, -50%);
-        }
-
-        .sessao-servico div strong {
-            font-size: 1rem;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        .sessao-servico div p {
-            font-size: 0.8rem;
-        }
-
-        .sessao-servico div hr {
-            border: none;
-            border-top: 1px solid var(--card-color);
-            opacity: .5;
-        }
-
-        .sessao-servico ul{
-            min-height: 200px;
-        }
-
-        .sessao-servico ul li{
-            color: slategrey;
-        }
-        .sessao-servico ul li:before{
-            content: url('data:image/svg+xml;charset=utf-8, <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="green" class="bi bi-check2" viewBox="0 0 16 16"> <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/> </svg>');
-        }
-
-        .sessao-servico button {
-            background-color: transparent;
-            color: white;
-            border: none;
-            outline: 1px solid white;
-            border-radius: 1rem;
-            padding: .5rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 900;
-            transition: .3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-        }
-
-        .sessao-servico  button .arrow {
-            width: 0;
-            height: 20px;
-            fill: white;
-            transform: scale(0);
-            transition: .3s;
-        }
-
-        .sessao-servico button:hover .arrow {
-            width: 20px;
-            margin-left: 1em;
-            transform: scale(1);
-        }
-
-        .sessao-servico  button:hover {
-            background-color: var(--blub-color);
-            color: white;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
 <div class="container-fluid " style="background: #061630">
-    <div style="width: 100%;height: 17px;background: #111111;color: white;display: flex">
+    <div style="width: 100%;height: 17px;background: #061630;color: white;display: flex;">
         <div class="d-flex justify-content-end" style="width: 30%"></div>
         <div class="d-flex justify-content-center p-0" style="width: 40%">
-            <svg class="bi bi-telephone" width="15px" fill="#fff" viewBox="0 0 16 16">
+            <svg class="bi bi-telephone" width="15px" fill="#fff" viewBox="0 0 16 16" style="padding: 10px 0">
                 <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
             </svg>
             <span style="font-size: 15px">(11)97834-4543</span></div>
@@ -540,10 +30,10 @@
             </svg>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background: #061630">
+    <nav class="navbar navbar-expand-lg " style="background: #061630">
         <div class="container-fluid " style="background: #061630">
             <a class="navbar-brand" href="#">
-                <svg width="90" height="90" class="position-absolute text-white" style="top: -30px" viewBox="261.64 199.048 573.92 432.392">
+                <svg width="90" height="90" class="position-absolute text-white" style="top: -30px; padding-bottom: 4px; padd" viewBox="261.64 199.048 573.92 432.392">
                     <path d="M -132 200 C -131.34 200 1.32 0 2 0 C 3.508 2.117 152.646 234.47 152.646 234.47 L 134.035 234.47 L 0.45 29.118 C 0.45 29.118 -129.396 230.332 -131.707 234.47 C -133.687 234.47 -193 54 -193 54 L -174.777 63.809 C -174.777 63.809 -132 197.796 -132 200 Z" fill="#F76206" transform="translate(517,236)"></path>
                     <path d="M -7.838 13.052 L 2 0 C 2 0 154.503 233.108 155 234 C 156.629 229.812 200.266 95.211 200.266 95.211 L 217 88 L 159.383 268.47 L -7.838 13.052 Z" fill="#F76205" transform="translate(539,202)"></path>
                     <path d="M -2 1 C -1.34 0.67 124.44 186.12 124.44 186.12 L 172.133 186.12 L 166.64 200.152 L 116 200.152 C 116 200.152 -1.454 28.32 -1.687 29 C -3.11 32.25 -90.868 165.47 -90.868 165.47 L -106.323 165.47 C -106.323 165.47 -2 2.02 -2 1 Z" fill="#F76306" transform="translate(517,305)"></path>
@@ -557,11 +47,13 @@
                     <rect x="286.96" y="491.12" width="84.4" height="14.032" style="stroke: rgb(0, 0, 0); fill: rgb(247, 98, 5);"></rect>
                 </svg>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
+
+
+            <button  class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list " style="color: white; "></i>
             </button>
             <div class="collapse navbar-collapse " id="navbarScroll">
-                <ul class="navbar-nav  my-2 my-lg-0  w-100  justify-content-end" style="--bs-scroll-height: 100px;">
+                <ul class="navbar-nav  my-2 my-lg-0  w-100  justify-content-end" style="--bs-scroll-height: 100px; display: flex; align-items: end ">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
@@ -578,50 +70,45 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid border mx-0 px-0 position-relative banner "
-         style="overflow: hidden;min-height: 500px; background: #061630; border: red">
-        <div class="slider " style="background: #061630">
-            <div class="slides" style="--img: url('imagen/photo6.jpg'); background: #061630 ">
-                <div class="content" style="background:#061630;">
+    <div ></div>
+    <div class="container-fluid border mx-0 px-0 position-relative banner " style="overflow: hidden;min-height: 500px;; background-position-x: right; border: red; backdrop-filter: blur(30px); " >
+        <div class="slider " style="background: #ff000000; border-radius: 10px; width: 450px">
+
+            <div class="slides" style="--img: url('imagen/photo4.jpeg'); border-radius: 10px;">
+                <div class="content" style="padding: 10px">
                     <h1>Slider 1</h1>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
                 </div>
             </div>
-            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
-                <div class="content">
+            <div class="slides" style="--img: url('imagen/photo1.jpg') ;">
+                <div class="content" style="padding: 10px">
                     <h1>Slider 2</h1>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
-                </div>
-            </div>
-            <div class="slides" style="--img: url('imagen/photo3.jpg') ">
-                <div class="content">
-                    <h1>Slider 3</h1>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
-                </div>
-            </div>
-            <div class="slides" style="--img: url('imagen/photo3.jpg') ">
-                <div class="content">
-                    <h1>Slider 4</h1>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
-                </div>
-            </div>
-            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
-                <div class="content">
-                    <h1>Slider 5</h1>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
 
                 </div>
             </div>
-            <div class="slides" style="--img: url('imagen/photo6.jpg') ">
+            <div class="slides" style="--img: url('imagen/photo2.jpg') ">
+                <div class="content" >
+                    <h1>Slider 3</h1>
+
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo6.jpeg') ">
+                <div class="content" >
+                    <h1 style="left: 100px" >Escada em <mark>Granito</mark></h1>
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo5.jpeg') ">
                 <div class="content">
-                    <h1>Slider 6</h1>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a</p>
+                    <h1  style="font-size: 40px; left: 110px">Restauração peça <mark  style="color: navajowhitee; background-color: #ff6300">Mármore</mark> </h1>
+
+
+                </div>
+            </div>
+            <div class="slides" style="--img: url('imagen/photo7.jpeg') ">
+                <div class="content">
+                    <h1 style="font-size: 50px; left: 110px">Polimento de <mark style="color: navajowhitee; background-color: #ff6300">Cerâmica</mark></h1>
+
                 </div>
             </div>
         </div>
@@ -629,6 +116,7 @@
             <span class="next mb-2"></span>
             <span class="prev "></span>
         </div>
+    </div>
         <div class="whatsapp" style="display: flex; align-items: center; justify-content: center">
             <a href="https://whatsapp.com" id="elemento"
                style="z-index: 30000000000;bottom: 20px;right: 10px; position: fixed">
@@ -641,87 +129,329 @@
                 </div>
             </a>
         </div>
+
+
+<section class="my-sessao-quemsomos" style="background-color: #182335;">
+    <div class="grid text-center" style="--bs-columns: 3;">
+        <div class="grid"><h1 style="color: white; top: 30px">Especialistas em Polimento, Restauração e Limpeza de Mármores,<br>
+            Granito e Porcelanato</h1>
+        <p style="color: white">Especializada em polimento, restauração e manutenção de pisos, a Reinar <br>
+            transforma superfícies desgastadas em verdadeiras obras de arte. Oferecemos <br>
+            soluções completas para mármore, granito, porcelanato e outros materiais, garantindo <br>
+            brilho duradouro e renovação impecável. Com profissionais experientes e equipamentos de <br>
+            alta tecnologia, asseguramos qualidade, eficiência e o melhor resultado para o seu ambiente. <br>
+            Deixe seu piso nas mãos de quem entende!</p></div>
+        <div>
+        <img src="imagen/artereinar.png" alt="" style="width: 300px; max-width: 100%">
+            </div>
     </div>
+
+
+</section>
 
     <section class="my-2 sessao-servico" style="background: linear-gradient(to right,#061630,80% , #98C1D9 ); border: 1px">
         <p class="h3 cor-primaria ">Nossos Serviços</p>
-        <div class="d-flex justify-content-around position-relative">
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <span class="bolha"></span>
-            <div class="card-service">
-                <div>
-                    <svg class="check" height="1em" viewBox="0 0 512 512">
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
-                    </svg>
-                    <p class="d-flex mb-3">
-                        <strong class="cor-primaria titulo">POLIMENTO</strong>
-                        <svg width="26" height="26" class="ms-2" fill="green" viewBox="0 0 512 512"><path d="M96 32v96H224V32c0-17.7-14.3-32-32-32H128C110.3 0 96 14.3 96 32zm0 128c-53 0-96 43-96 96V464c0 26.5 21.5 48 48 48H272c26.5 0 48-21.5 48-48V256c0-53-43-96-96-96H96zm64 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160zM384 48c0-1.4-1-3-2.2-3.6L352 32 339.6 2.2C339 1 337.4 0 336 0s-3 1-3.6 2.2L320 32 290.2 44.4C289 45 288 46.6 288 48c0 1.4 1 3 2.2 3.6L320 64l12.4 29.8C333 95 334.6 96 336 96s3-1 3.6-2.2L352 64l29.8-12.4C383 51 384 49.4 384 48zm76.4 45.8C461 95 462.6 96 464 96s3-1 3.6-2.2L480 64l29.8-12.4C511 51 512 49.4 512 48c0-1.4-1-3-2.2-3.6L480 32 467.6 2.2C467 1 465.4 0 464 0s-3 1-3.6 2.2L448 32 418.2 44.4C417 45 416 46.6 416 48c0 1.4 1 3 2.2 3.6L448 64l12.4 29.8zm7.2 100.4c-.6-1.2-2.2-2.2-3.6-2.2s-3 1-3.6 2.2L448 224l-29.8 12.4c-1.2 .6-2.2 2.2-2.2 3.6c0 1.4 1 3 2.2 3.6L448 256l12.4 29.8c.6 1.2 2.2 2.2 3.6 2.2s3-1 3.6-2.2L480 256l29.8-12.4c1.2-.6 2.2-2.2 2.2-3.6c0-1.4-1-3-2.2-3.6L480 224l-12.4-29.8zM448 144c0-1.4-1-3-2.2-3.6L416 128 403.6 98.2C403 97 401.4 96 400 96s-3 1-3.6 2.2L384 128l-29.8 12.4c-1.2 .6-2.2 2.2-2.2 3.6c0 1.4 1 3 2.2 3.6L384 160l12.4 29.8c.6 1.2 2.2 2.2 3.6 2.2s3-1 3.6-2.2L416 160l29.8-12.4c1.2-.6 2.2-2.2 2.2-3.6z"/></svg>                    </p>
-                    <ul>
-                        <li class="list-group-item">Polimento Mármores</li>
-                        <li class="list-group-item">Polimento Granito</li>
-                    </ul>
-                    <hr>
-                </div>
-            </div>
-            <div class="card-service">
-                <div>
-                    <svg class="check" height="1em" viewBox="0 0 512 512">
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
-                    </svg>
-                    <p class="d-flex mb-3">
-                        <strong class="cor-primaria  titulo">LIMPEZA</strong>
-                        <svg width="26" height="26" fill="green" class="bi bi-stars ms-2" viewBox="0 0 16 16"> <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>
-                    </p>
 
-                    <ul>
-                        <li class="list-group-item">Limpeza De Pedra Mineira</li>
-                        <li class="list-group-item">Limpeza De Pedra Miracema</li>
-                        <li class="list-group-item">Limpeza De Fulget</li>
-                        <li class="list-group-item">Limpeza De Granito Flameado</li>
-                        <li class="list-group-item">Limpeza De Cerâmica</li>
-                        <li class="list-group-item">Limpeza De Mosaico</li>
+
+            <div class="d-flex justify-content-around" style="padding: 30px ; flex-wrap:wrap; gap: 10px 0px" >
+                <div class="card">
+                    <div class="card__border"></div>
+                    <div class="card_title__container">
+                        <h1 class="card_title" style="font-size: 30px">Polimentos</h1>
+                        <p class="card_paragraph">Reinar Pisos</p>
+                    </div>
+                    <hr class="line" />
+                    <ul class="card__list d-flex">
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Polimento de Mármores</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Polimento de Granitos </span>
+                        </li>
+                        <li class="card__list_item" style="gap: 30px">
+         <li class="card__list_item" style=" top: 30px">
+
+                    </li>
                     </ul>
-                    <hr>
+                    <button class="button" style="top: 300px">Ver Mais</button>
                 </div>
-            </div>
-            <div class="card-service">
-                <div>
-                    <svg class="check" height="1em" viewBox="0 0 512 512">
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path>
-                    </svg>
-                    <p  class="mb-3">
-                        <strong class="cor-primaria titulo">RESTAURAÇÃO</strong>
-                        <svg width="26" height="26" fill="green" class="bi bi-hammer" viewBox="0 0 16 16">
-                            <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5 5 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334"/>
-                        </svg>
-                    </p>
-                    <ul>
-                        <li class="list-group-item">Restauração De Mármores</li>
-                        <li class="list-group-item">Restauração De Granito</li>
-                        <li class="list-group-item">Restauração De Granilite</li>
-                        <li class="list-group-item">Restauração De Porcelanato</li>
-                        <li class="list-group-item">Restauração De Ardósia</li>
-                        <li class="list-group-item">Restauração De Concreto Polido</li>
+
+                            <!--fim da primeira-->
+
+
+                <div class="card">
+                    <div class="card__border"></div>
+                    <div class="card_title__container">
+                        <h1 class="card_title" style="font-size: 30px">Restaurações</h1>
+                        <p class="card_paragraph">Reinar pisos</p>
+                    </div>
+                    <hr class="line" />
+                    <ul class="card__list">
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração De Mármores</span></li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração De Granitos</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração de Granilites</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração de Porcelanatos</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração De Ardósias</span>
+                        </li>
+
+
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Restauração De Concretos Polidos</span></li>
+
                     </ul>
-                    <hr>
+                    <button class="button">Ver Mais</button>
                 </div>
+
+
+<!--Fim da segunda-->
+
+
+                <div class="card">
+                    <div class="card__border"></div>
+                    <div class="card_title__container">
+                        <h1 class="card_title" style="font-size: 30px">Limpezas</h1>
+                        <p class="card_paragraph">Reinar Pisos</p>
+                    </div>
+                    <hr class="line" />
+                    <ul class="card__list">
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Pedra Mineira</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Pedra Miracema</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Fulget</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Granito Flameado</span>
+                        </li>
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Cerâmica</span>
+                        </li>
+
+                        <li class="card__list_item">
+      <span class="check">
+        <svg
+                class="check_svg"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+                  clip-rule="evenodd"
+                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                  fill-rule="evenodd"
+          ></path>
+        </svg>
+      </span>
+                            <span class="list_text">Limpeza de Mosaico</span>
+                        </li>
+
+                    </ul>
+                    <button class="button" style="top: 30px; text-align: center">Ver Mais</button>
+                </div>
+
+
             </div>
+        <div style="display: flex; align-items: center; justify-content: center; ">
+
+        </div>
         </div>
 
-        <button  class="">
-            Ver mais
-            <svg class="arrow"  height="1em" viewBox="0 0 512 512">
-                <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"></path>
-            </svg>
-        </button>
     </section>
+
+
     <!--    sessão  serviços-->
     <!--    <section class="my-5 depoimento">-->
     <!--        <p class="h3 cor-primaria ">Nossos Serviços</p>-->
@@ -803,7 +533,7 @@
     <!--    sessão  depoimentos  vc cria outra sessão e adiciona as divs-->
     <section class="depoimento2 container-fluid mx-0 my-3  position-relative p-2" style="overflow: hidden">
         <p class="h3 cor-primaria ">O que nossos clientes dizem sobre nosso trabalho</p>
-        <div class="p-5" style="background: cadetblue;overflow: hidden">
+        <div class="p-5" style="background: white;overflow: hidden">
             <div class="slider2 position-relative py-2">
                 <div class="slides2 border">
                     <div class="border rounded-circle position-absolute bg-white"
@@ -813,7 +543,9 @@
                         </svg>
                     </div>
                     <div class="card-body">
-                        <div class="card-text p-2">
+                        <div class="card-text p-2" >
+
+                            <img src="imagen/pessoa1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 50px"> <h1 style="font-size: 20px; display: inline">Pedro Moraes</h1>
                             <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
                                 <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
                             </svg>
@@ -826,6 +558,10 @@
                                     dessa empresa para quem busca qualidade e eficiência!
                                 </em>
                             </p>
+                            <div >
+
+                            </div>
+
                             <svg width="16" height="16" fill="currentColor" class="bi bi-quote"
                                  viewBox="0 0 16 16">
                                 <g transform="rotate(180, 8, 8)">
@@ -845,6 +581,8 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="card-text">
+                            <img src="imagen/pessoa3.jpg" alt="" style="width: 50px; height: 50px; border-radius: 50px"> <h1 style="font-size: 20px; display: inline">José Carlos</h1>
+
                             <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
                                 <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
                             </svg>
@@ -875,6 +613,8 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="card-text">
+                            <img src="imagen/pessoa6.jpg" alt="" style="width: 50px; height: 50px; border-radius: 50px"> <h1 style="font-size: 20px; display: inline">José Carlos</h1>
+
                             <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
                                 <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
                             </svg>
@@ -905,6 +645,8 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="card-text">
+                            <img src="imagen/pessoa7.jpg" alt="" style="width: 50px; height: 50px; border-radius: 50px"> <h1 style="font-size: 20px; display: inline">Eduardo Neves</h1>
+
                             <svg width="16" height="16" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
                                 <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z"/>
                             </svg>
@@ -996,41 +738,10 @@
 </div>
 
 
-<script>
-    let next = document.querySelector(".next")
-    let prev = document.querySelector(".prev")
-    let slider = document.querySelector(".slider")
-
-    next.addEventListener('click', function () {
-        let slides = document.querySelectorAll(".slides")
-        slider.appendChild(slides[0])
-    })
-
-    prev.addEventListener('click', function () {
-        let slides = document.querySelectorAll(".slides")
-        slider.prepend(slides[slides.length - 1])
-    })
-
-    let slide2 = document.querySelector(".slider2")
-    let next2 = document.querySelector("#nextSlider")
-
-    next2.addEventListener('click', function () {
-        let slides2 = document.querySelectorAll(".slides2")
-        slide2.appendChild(slides2[0])
-    })
-
-    const elemento = document.getElementById('elemento');
-
-    function executarBounce() {
-        elemento.classList.add('animar-bounce');
-
-        setTimeout(() => {
-            elemento.classList.remove('animar-bounce');
-        }, 1000);
-    }
-
-    setInterval(executarBounce, 5000);
-</script>
+<script src="js/slides.js"> </script>
+<script src="js/animbouce.js"  ></script>
+<script src="js/cliqueslide.js"></script>
+<script src="js/slidesdepoimentos.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
